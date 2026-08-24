@@ -1,0 +1,27 @@
+{
+  "name": "firstBackend-js",
+  "version": "1.0.0",
+  "description": "basic app to deploy",
+  "keywords": [
+    "node"
+  ],
+  "homepage": "https://github.com/rahulsuthar90243-stack/backend-learning#readme",
+  "bugs": {
+    "url": "https://github.com/rahulsuthar90243-stack/backend-learning/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahulsuthar90243-stack/backend-learning.git"
+  },
+  "license": "ISC",
+  "author": "Rahul Suthar",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
+}
