@@ -32,4 +32,18 @@ app.delete("/notes/:index", (req, res) => {
         message: "notes deleted successfully"
     })
 })
+
+app.patch("/notes/:index", (req, res) => {
+  const index = Number(req.params.index);
+  const description = req.body.description; 
+  
+  notes[index].description = description;
+
+  res.status(200).json({
+    message: "Nodes Update successfully"
+  })
+
+})
+
+
 export default app
