@@ -1,6 +1,15 @@
 # Backend Learning
 
-This repository contains three small JavaScript projects for learning Express, MongoDB, and React.
+A collection of small JavaScript projects for learning Express, MongoDB, Mongoose, React, file uploads, and external storage services. Each project is independent and has its own `package.json`.
+
+## Repository structure
+
+```text
+firstBackend_js/       Basic Express server
+second_backend/        Notes REST API with MongoDB
+fullstack/              Express API with a React/Vite frontend
+T_COMPLETE_BACKEND/    Post creation API with image uploads
+```
 
 ## Projects
 
@@ -100,6 +109,51 @@ npm run dev
 ```
 
 Open the local URL printed by Vite.
+
+### 4. `T_COMPLETE_BACKEND`
+
+An Express API that accepts a post image, uploads it to ImageKit, and uses the MongoDB connection configured by `second_backend`.
+
+Routes:
+
+- `GET /` - Health check
+- `POST /create-post` - Upload a post image using the `image` form field
+
+Create a `.env` file inside `T_COMPLETE_BACKEND`:
+
+```env
+MONGODB_URL=mongodb://127.0.0.1:27017
+DB_NAME=posts_db
+Imagekit_key=your-imagekit-private-key
+```
+
+Run it:
+
+```bash
+cd T_COMPLETE_BACKEND
+npm install
+npm start
+```
+
+The API is available at `http://localhost:8000`.
+
+Example upload with `curl`:
+
+```bash
+curl -X POST http://localhost:8000/create-post -F "image=@path/to/image.jpg"
+```
+
+## General setup
+
+Install dependencies separately in the project you want to run:
+
+```bash
+cd <project-directory>
+npm install
+npm start
+```
+
+Only `second_backend` and `T_COMPLETE_BACKEND` require a running MongoDB instance. Do not commit `.env` files or private API keys.
 
 ## Requirements
 
