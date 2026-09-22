@@ -1,11 +1,19 @@
-import app from "./src/app.js"
+import app from "./src/app.js";
 import "dotenv/config";
-import connectDB from "../second_backend/src/db/db.js";
-const PORT = 8000;
+import connectDB from "./src/db/db.js";
 
+const PORT = process.env.PORT || 8000;
 
-connectDB();
+const startServer = async () => {
+  try {
+    await connectDB();
+  } catch (error) {
+    console.log("MongoDB connection warning:", error.message);
+  }
 
-app.listen(PORT, () => {
+  app.listen(PORT, () => {
     console.log(`Server is running on: http://localhost:${PORT}`);
-})
+  });
+};
+
+startServer();
