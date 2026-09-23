@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import axios from "axios"
 
 function CreatePost() {
   const [caption, setCaption] = useState('')
@@ -21,14 +22,25 @@ function CreatePost() {
     setImage({ file, preview: URL.createObjectURL(file) })
   }
 
-  function handleSubmit(event) {
-    event.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     if (!image) {
       setError('Add a photo before publishing your post.')
       return
     }
+     
+   const formData = new FormData(e.target)
+   console.log(formData)
 
-    navigate('/')
+   axios.post("http://localhost:8000/create-post", formData)
+   .then((res) => {
+      //  console.log(res.data)
+       navigate('/fead')
+   })
+   .catch((error) => {
+     console.log("Error: ", error);
+   })
+
   }
 
   return (
@@ -76,7 +88,7 @@ function CreatePost() {
               <p className='mt-1 text-sm text-zinc-500'>PNG, JPG, or WEBP up to 10 MB</p>
             </div>
           )}
-          <input ref={fileInputRef} type='file' accept='image/*' onChange={handleImageChange} className='hidden' />
+          <input ref={fileInputRef} name='image' type='file' accept='image/*' onChange={handleImageChange} className='hidden' />
         </div>
 
         {image && (
@@ -98,6 +110,7 @@ function CreatePost() {
           </div>
           <textarea
             id='post-caption'
+            name='caption'
             value={caption}
             maxLength={180}
             onChange={(event) => setCaption(event.target.value)}
