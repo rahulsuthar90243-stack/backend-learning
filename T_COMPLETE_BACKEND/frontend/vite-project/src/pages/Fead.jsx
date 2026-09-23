@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 const Fead = () => {
     const [post, setPost] = useState([
@@ -9,6 +10,19 @@ const Fead = () => {
             createdAt: 'Today',
         }
     ])
+
+    useEffect(() => {
+ 
+        axios.get("http://localhost:8000/create-post")
+        .then((res) => {
+            setPost(Array.isArray(res.data.data) ? res.data.data : []);
+            // console.log(Array.isArray(res.data.data))
+        })
+        .catch((error) => {
+            console.error("Failed to load posts:", error);
+            setPost([]);
+        });
+    }, [])
 
     return (
         <section className='mx-auto max-w-2xl py-6'>
