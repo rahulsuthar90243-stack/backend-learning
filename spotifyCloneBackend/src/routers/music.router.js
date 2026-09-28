@@ -1,12 +1,22 @@
 import express from "express";
-import musicController from "../controllers/music.controller.ja"
-import multer from "multer"
+import multer from "multer";
+import { createMusic, createAlbum } from "../controllers/music.controller.js";
+import authMiddleware from "../middleware/auth.middleware.js";
 
 
+const router = express.Router();
 const upload = multer({
-    storage: multer.memoryStorage()
-})
-const musicrouter = express.Router();
+  storage: multer.memoryStorage(),
+});
+
+router.post("/upload", 
+    authMiddleware.authArtist, 
+    upload.single("music"), 
+    createMusic);
+
+router.post("/album", 
+    authMiddleware.authArtist,
+    createAlbum);
 
 
-router.post("/upload", upload.single("music"), musicController.createMusic)
+export default router;
